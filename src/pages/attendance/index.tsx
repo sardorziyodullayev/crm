@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from '@mantine/core';
 import { IconCheck, IconClock, IconNote, IconX } from '@tabler/icons-react';
-import { useQueries } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { motion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
@@ -55,18 +55,13 @@ export default function AttendancePage() {
     }
   }, [groupsQ.data, selectedGroup]);
 
-  const attendanceQ = useQueries({
-    queries: selectedGroup
-      ? [
-          {
-            queryKey: queryKeys.attendance.byGroup(selectedGroup, dayjs().format('YYYY-MM')),
-            queryFn: () => mockAttendance.byGroup(selectedGroup),
-          },
-        ]
-      : [],
+  const attendanceQ = useQuery({
+    queryKey: queryKeys.attendance.byGroup(selectedGroup ?? '', dayjs().format('YYYY-MM')),
+    queryFn: () => mockAttendance.byGroup(selectedGroup as string),
+    enabled: Boolean(selectedGroup),
   });
 
-  const sheets = attendanceQ[0]?.data ?? [];
+  const sheets: SeedAttendance[] = attendanceQ.data ?? [];
 
   const studentMap = useMemo(() => {
     const m = new Map<string, { name: string; avatar?: string }>();

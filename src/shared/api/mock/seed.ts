@@ -68,7 +68,8 @@ const buildName = () => {
   const isMale = rand() > 0.5;
   const first = isMale ? pick(FIRST_NAMES_M) : pick(FIRST_NAMES_F);
   const last = pick(LAST_NAMES);
-  return { firstName: first, lastName: last, gender: isMale ? 'male' : 'female' as const };
+  const gender: 'male' | 'female' = isMale ? 'male' : 'female';
+  return { firstName: first, lastName: last, gender };
 };
 
 const phone = () =>

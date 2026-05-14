@@ -1,4 +1,4 @@
-import { Spotlight, type SpotlightActionData } from '@mantine/spotlight';
+import { Spotlight, spotlight, type SpotlightActionData } from '@mantine/spotlight';
 import {
   IconCalendar,
   IconCash,
@@ -34,6 +34,11 @@ export function CommandPalette() {
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [setOpen]);
+
+  useEffect(() => {
+    if (open) spotlight.open();
+    else spotlight.close();
+  }, [open]);
 
   const go = (href: string) => () => {
     setOpen(false);
@@ -131,9 +136,6 @@ export function CommandPalette() {
 
   return (
     <Spotlight
-      opened={open}
-      onSpotlightOpen={() => setOpen(true)}
-      onSpotlightClose={() => setOpen(false)}
       actions={actions}
       shortcut={['mod + K']}
       nothingFound="Nothing found here"

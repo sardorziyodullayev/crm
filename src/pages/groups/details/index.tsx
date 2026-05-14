@@ -167,30 +167,31 @@ export default function GroupDetailsPage() {
             ) : (
               <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="xs">
                 {studentsInGroup.map((s) => (
-                  <Group
+                  <Link
                     key={s.id}
-                    component={Link}
                     to={ROUTES.studentDetails(s.id)}
-                    p="sm"
-                    style={{
-                      border: '1px solid var(--app-border)',
-                      borderRadius: 12,
-                      textDecoration: 'none',
-                      color: 'inherit',
-                    }}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
                   >
-                    <Avatar size={32} radius="xl" color="brand" variant="light">
-                      {initials(s.fullName)}
-                    </Avatar>
-                    <Stack gap={0}>
-                      <Text fz={13} fw={600}>
-                        {s.fullName}
-                      </Text>
-                      <Text fz={11} c="dimmed">
-                        {s.phone}
-                      </Text>
-                    </Stack>
-                  </Group>
+                    <Group
+                      p="sm"
+                      style={{
+                        border: '1px solid var(--app-border)',
+                        borderRadius: 12,
+                      }}
+                    >
+                      <Avatar size={32} radius="xl" color="brand" variant="light">
+                        {initials(s.fullName)}
+                      </Avatar>
+                      <Stack gap={0}>
+                        <Text fz={13} fw={600}>
+                          {s.fullName}
+                        </Text>
+                        <Text fz={11} c="dimmed">
+                          {s.phone}
+                        </Text>
+                      </Stack>
+                    </Group>
+                  </Link>
                 ))}
               </SimpleGrid>
             )}

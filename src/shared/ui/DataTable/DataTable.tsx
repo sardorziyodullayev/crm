@@ -16,7 +16,7 @@ import { useState, type ReactNode } from 'react';
 
 import { EmptyState } from '../EmptyState';
 
-export interface DataTableProps<T extends Record<string, unknown>> {
+export interface DataTableProps<T extends Record<string, any>> {
   data: T[];
   columns: MRT_ColumnDef<T>[];
   loading?: boolean;
@@ -34,7 +34,7 @@ export interface DataTableProps<T extends Record<string, unknown>> {
   density?: 'xs' | 'md' | 'xl';
 }
 
-export function DataTable<T extends Record<string, unknown>>({
+export function DataTable<T extends Record<string, any>>({
   data,
   columns,
   loading,
